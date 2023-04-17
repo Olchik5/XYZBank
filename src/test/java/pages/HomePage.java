@@ -3,22 +3,31 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import wait.Wait;
 
 public class HomePage extends PageBase {
-    WebDriver driver;
+
+    Wait wait;
 
     public HomePage(WebDriver driver) {
         super(driver);
     }
 
     @FindBy(css = ".home")
-    private WebElement homeButton;
+    protected WebElement homeButton;
 
     @FindBy(xpath = "//button[@ng-click='customer()']")
-    private WebElement customerLoginButton;
+    protected WebElement customerLoginButton;
 
     @FindBy(xpath = "//button[@ng-click='manager()']")
-    private WebElement bankManagerLoginButton;
+    protected WebElement bankManagerLoginButton;
+
+    public void waitForLoading() {
+        wait = new Wait(driver);
+        wait.forVisibility(homeButton);
+        wait.forVisibility(customerLoginButton);
+        wait.forVisibility(bankManagerLoginButton);
+    }
 
     public void clickOnHomeButton() {
         click(homeButton);
